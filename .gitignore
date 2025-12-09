@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/chatdb.mv.db
+/chatdb.trace.db
