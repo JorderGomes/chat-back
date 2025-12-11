@@ -1,5 +1,6 @@
 package com.chat.realtime.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class User {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Msg> messages;
 
