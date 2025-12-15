@@ -20,11 +20,15 @@ public class User {
     private String name;
 
     @JsonIgnore
+    private String password;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Msg> messages;
 
-    public User(String name){
+    public User(String name, String password){
         this.name = name;
+        this.password = password;
     }
 
 }
