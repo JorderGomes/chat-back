@@ -1,5 +1,6 @@
 package com.chat.realtime.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,15 +19,21 @@ public class Msg {
 
     private String msg;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private LocalDateTime time;
 
-    public Msg(String msg, User user) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", nullable = false)
+    @JsonIgnore
+    private ChatRoom room;
+
+    public Msg(String msg, User user, ChatRoom room) {
         this.msg = msg;
         this.user = user;
+        this.room = room;
         this.time = LocalDateTime.now();
     }
 

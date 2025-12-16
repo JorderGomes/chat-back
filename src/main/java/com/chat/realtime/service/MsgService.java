@@ -1,7 +1,10 @@
 package com.chat.realtime.service;
 
+import com.chat.realtime.model.ChatRoom;
+import com.chat.realtime.model.DTO.MsgInputDTO;
 import com.chat.realtime.model.Msg;
 import com.chat.realtime.model.User;
+import com.chat.realtime.repository.ChatRoomRepository;
 import com.chat.realtime.repository.MsgRepository;
 import com.chat.realtime.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +22,20 @@ public class MsgService {
     @Autowired
     private UserRepository userRepository;
 
-    public Msg saveMessage(Long userId, String content) {
-        User user = userRepository.findById(userId)
+    @Autowired
+    private ChatRoomRepository chatRoomRepository;
+
+    public Msg saveMessage(MsgInputDTO msgInputDTO) {
+        Long userId = msgInputDTO.userId();
+        Long roomId = msgInputDTO.roomId();
+        String content = msgInputDTO.content();
+
+        User sender = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        Msg message = new Msg(content, user);
+        ChatRoom currentChatRoom = chatRoomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Chat room not found"));
+
+        Msg message = new Msg(content, sender, currentChatRoom);
         return msgRepository.save(message);
     }
 
