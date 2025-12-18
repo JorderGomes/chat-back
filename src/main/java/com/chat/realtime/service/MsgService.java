@@ -39,9 +39,9 @@ public class MsgService {
         return msgRepository.save(message);
     }
 
-    public Page<Msg> findRecentMessages(int page, int size) {
+    public Page<Msg> findRecentMessages(Long roomId, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "time"));
-        return msgRepository.findAll(pageRequest);
+        return msgRepository.findByRoomId(roomId, pageRequest);
     }
 
 }

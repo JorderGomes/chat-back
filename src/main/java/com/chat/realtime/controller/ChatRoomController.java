@@ -18,7 +18,7 @@ public class ChatRoomController {
 
     @PostMapping("/find-or-create")
     public ResponseEntity<Long> getRoomId(@RequestBody ChatRoomRequestDTO chatRoomRequestDTO){
-        Long roomId = chatRoomService.findOrCreateRoom(chatRoomRequestDTO);
+        Long roomId = chatRoomService.getOrCreateChatRoomId(chatRoomRequestDTO);
         return ResponseEntity.ok(roomId);
     }
 

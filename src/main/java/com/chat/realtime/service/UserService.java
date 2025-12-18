@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public List<User> findByName(String name){
-        return userRepository.findByName(name);
+        return userRepository.findByNameContainingIgnoreCase(name);
     }
 
     public Optional<User> findById(Long id){
