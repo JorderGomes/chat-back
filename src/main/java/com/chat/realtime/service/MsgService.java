@@ -1,5 +1,7 @@
 package com.chat.realtime.service;
 
+import com.chat.realtime.exceptions.ChatRoomNotFoundException;
+import com.chat.realtime.exceptions.UserNotFoundException;
 import com.chat.realtime.model.ChatRoom;
 import com.chat.realtime.model.DTO.MsgInputDTO;
 import com.chat.realtime.model.Msg;
@@ -31,9 +33,9 @@ public class MsgService {
         String content = msgInputDTO.content();
 
         User sender = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
         ChatRoom currentChatRoom = chatRoomRepository.findById(roomId)
-                .orElseThrow(() -> new RuntimeException("Chat room not found"));
+                .orElseThrow(() -> new ChatRoomNotFoundException("Chat room not found"));
 
         Msg message = new Msg(content, sender, currentChatRoom);
         return msgRepository.save(message);
