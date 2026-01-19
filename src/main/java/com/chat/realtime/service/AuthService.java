@@ -6,34 +6,22 @@ import com.chat.realtime.repository.UserRepository;
 import com.chat.realtime.security.Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-    private Encryptor encryptor = new Encryptor();
 
-    public User loginOrRegister(AuthDTO authDTO) throws NoSuchAlgorithmException {
-        String name = authDTO.name();
-        String rawPassword = authDTO.password();
-        String encodedPassword = encryptor.encode(rawPassword);
-
-        Optional<User> optUser = userRepository.findByNameAndPassword(name, encodedPassword);
-
-        if (optUser.isPresent()){
-            return optUser.get();
-        } else {
-            User user = new User(name, encodedPassword);
-            return userRepository.save(user);
-        }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByName(username);
     }
-
-
 }
