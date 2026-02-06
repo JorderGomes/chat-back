@@ -30,4 +30,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public boolean existsByName(String name){
+        return userRepository.existsByName(name);
+    }
+
 }

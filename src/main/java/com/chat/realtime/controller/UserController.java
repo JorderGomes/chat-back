@@ -28,6 +28,11 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/exists")
+    public boolean isUserExist(@RequestParam String name){
+        return userService.existsByName(name);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<User>> getUsersByName(@RequestParam String name){
         List<User> users = userService.findByName(name);

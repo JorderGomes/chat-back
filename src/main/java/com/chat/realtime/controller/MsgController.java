@@ -16,10 +16,9 @@ public class MsgController {
     @GetMapping("/{roomId}")
     public Page<Msg> getMessages(
             @PathVariable Long roomId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "0") int page
     ){
-        return msgService.findRecentMessages(roomId, page, size);
+        return msgService.findRecentMessages(roomId, page);
     }
 
 }

@@ -41,7 +41,8 @@ public class MsgService {
         return msgRepository.save(message);
     }
 
-    public Page<Msg> findRecentMessages(Long roomId, int page, int size) {
+    public Page<Msg> findRecentMessages(Long roomId, int page) {
+        int size = 10;
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "time"));
         return msgRepository.findByRoomId(roomId, pageRequest);
     }
