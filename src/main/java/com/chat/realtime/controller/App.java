@@ -19,12 +19,6 @@ public class App {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-//    @MessageMapping("/chatmessage")
-//    @SendTo("/chat")
-//    public Msg sendMesssage(MsgInputDTO input) {
-//        return msgService.saveMessage(input);
-//    }
-
     @MessageMapping("/chat/{roomId}/send")
     public Msg sendMessage(@DestinationVariable Long roomId, MsgInputDTO input) {
         Msg savedMessage = msgService.saveMessage(input);
