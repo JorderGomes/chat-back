@@ -1,6 +1,6 @@
 package com.chat.realtime.config;
 
-import io.github.cdimascio.dotenv.Dotenv;
+// import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -11,8 +11,9 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 
-    private final Dotenv dotenv = Dotenv.load();
-    private final String allowedOrigin1 = dotenv.get("ALLOWED_ORIGIN_1");
+    // private final Dotenv dotenv = Dotenv.load();
+    @Value("${ALLOWED_ORIGIN_1}")
+    private final String allowedOrigin1; // = dotenv.get("ALLOWED_ORIGIN_1");
     
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
